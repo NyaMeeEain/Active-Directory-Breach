@@ -1,0 +1,11 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <OutputPath>C:\Users\NyaMeeEain\Desktop</OutputPath>
+        <FileName>\test.dll</FileName>
+    </PropertyGroup>
+    <Target Name="UnregisterAssemblies">
+        <UnregisterAssembly
+            Condition="Exists('$(OutputPath)$(FileName)')"
+            Assemblies="$(OutputPath)$(FileName)" />
+    </Target>
+</Project>

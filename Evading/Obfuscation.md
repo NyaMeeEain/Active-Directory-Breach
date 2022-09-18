@@ -17,4 +17,5 @@ Evil Clippy can automatically hide all modules with the -g flag:
 EvilClippy.exe -g macrofile.doc
 Evil Clippy can confuse pcodedmp and many other analysis tools with the -r flag.
 EvilClippy.exe -r macrofile.doc
+EvilClippy.exe -s t.vba -g -d -r -u mal_doc.docm
 ```

@@ -19,3 +19,7 @@ Evil Clippy can confuse pcodedmp and many other analysis tools with the -r flag.
 EvilClippy.exe -r macrofile.doc
 EvilClippy.exe -s t.vba -g -d -r -u mal_doc.docm
 ```
+### Chameleon
+```
+python .\chameleon.py -a .\PowerUp.ps1 -o .\PowerUp-obf.ps1 -z
+```

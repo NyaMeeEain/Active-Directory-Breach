@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+
+	<!-- We can go into subdirectories without loadFrom -->
+	<file name="Debug\\LittleObject.dll">
+
+		<comClass
+			clsid="{00000000-FEED-ACDC-0000-000000000000}"
+			progid="LittleObject"
+			threadingModel="Both" 
+		/>
+		
+	</file>
+
+</assembly>

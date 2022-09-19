@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+
+	<!-- What file do we need -->
+	<file name="dynwrapx.dll">   
+
+		<!-- What class do we need --> 
+		<comClass        
+			description="DynamicWrapperX Class"        
+			clsid="{89565276-A714-4A43-912E-978B935EDCCC}"        
+			threadingModel="Both"        
+			progid="DynamicWrapperX"
+		/>
+
+	</file>
+
+</assembly>
+
+

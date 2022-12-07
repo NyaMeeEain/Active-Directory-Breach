@@ -18,3 +18,15 @@ create full C:\ntdsutil
 quit
 quit
 ```
+```
+Import-Module .\Copy-VSS.ps1
+Copy-VSS
+Copy-VSS -DestinationDir C:\ShadowCopy\
+
+Import-Module .\VolumeShadowCopyTools.ps1
+New-VolumeShadowCopy -Volume C:\
+Get-VolumeShadowCopy 
+
+
+
+```

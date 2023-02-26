@@ -83,3 +83,59 @@ powershell Get-ADComputer -Filter {(msDS-AllowedToDelegateTo -ne "{}")} -Propert
 powershell Get-WmiObject -Class Win32_IP4RouteTable | select description, nexthop 
 
 ```
+
+### Updated
+```
+#Domain Enumeration
+[System.Net.Dns]::GetHostByName(($env:computerName))
+[System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
+
+#Domain Forest Trusts
+([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()).GetAllTrustRelationships()
+([System.DirectoryServices.ActiveDirectory.Forest]::GetCurrentForest())
+([ADSISearcher]"(objectClass=trustedDomain)").FindAll()
+([ADSISearcher]"(objectClass=trustedDomain)").FindAll() | %{$a=$_.Properties["trustattributes"]; $d=$_.Properties["trustdirection"]; $t=$_.Properties["trusttype"] ; write-Host $_.Properties["distinguishedname"] $a $d $t}
+
+
+#Get a Domain Computer
+([ADSISearcher]"ObjectClass=computer").FindAll()
+([ADSISearcher]"(&(objectClass=computer)(name=Man*))").FindAll()
+([ADSISearcher]"(&(objectClass=computer)(name=Manmeet))").FindAll()
+([adsisearcher]'(&(objectCategory=computer)(!(description=*)))').FindAll()
+([adsisearcher]'(&(objectCategory=group)(description=*))').FindAll()
+
+([adsisearcher]'(&(objectCategory=person)(objectClass=user)
+(userAccountControl:1.2.840.113556.1.4.803:=544))').FindAll()
+
+#LAPS
+([adsisearcher]'(&(objectCategory=computer)(ms-MCSAdmPwd=*))').FindAll().properties
+([adsisearcher]"(&(objectCategory=computer)(ms-MCS-AdmPwd=*)(sAMAccountName=*))").findAll() | ForEach-Object { $_.properties}
+([adsisearcher]"(&(objectCategory=computer)(ms-MCS-AdmPwd=*)(sAMAccountName=MACHINE$))").findAll() | ForEach-Object { $_.properties}
+
+
+
+
+
+([adsisearcher]'(&(objectCategory=user) (badpwdcount>=1))').FindAll()
+
+
+#Enumerate All Users
+
+([ADSISearcher]"(&(objectClass=user (samAccountType=805306368))").FindAll()|ft
+
+([ADSISearcher]"(&(objectClass=user)(samAccountType=805306368))").FindAll() | %{ $_.Properties["samaccountname"] }
+
+#Enumerate all users with a SPN
+([ADSISearcher]"(&(objectClass=user)(servicePrincipalName=*)(samAccountType=805306368))").FindAll()
+
+#Enumerate a Domain Group
+([ADSISearcher]"ObjectClass=group").FindAll()
+([ADSISearcher]"(&(ObjectClass=group)(samaccountname=Domain Admins))").FindOne()
+([ADSISearcher]"(distinguishedname=CN=AB ACCESS,CN=Users,DC=corp,DC=manmeetdc,DC=local)").FindOne().Properties.member
+
+ All organizational units
+([adsisearcher]'(objectCategory=organizationalUnit)').FindAll()
+
+All containers
+([adsisearcher]'(objectCategory=container)').FindAll()
+```

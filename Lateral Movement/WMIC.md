@@ -1,3 +1,5 @@
+
+### Remotely Process Spawning
 ```
 wmic /node:"5.0.0.20" /user:"dfir\user" /password:QWE123! qfe list
 wmic /node:10.0.0.6 /user:administrator process call create "cmd.exe /c calc"

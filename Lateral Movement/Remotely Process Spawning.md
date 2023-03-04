@@ -53,3 +53,13 @@ wmic /authority:"kerberos:insomnia.io\john" /node:insomnia.io  path win32_proces
 wmic /authority:"kerberos:insomnia.io\john" /node:insomnia.io  "cmd /c ipconfig"
 wmic /authority:"Kerberos:DOMAIN REMOTE" /node:REMOTE process call create " Windows System32 nodepad.exe
 ```
+### Invoke-Command
+```
+$Host = '192.168.10.142';
+$username = 'administrator'
+$password = 'P@ssw0rd'
+$cred = New-Object System.Management.Automation.PSCredential -ArgumentList @($username,(ConvertTo-SecureString -String $password -AsPlainText -Force))
+
+Invoke-Command -ComputerName $Host -Credential $cred -ScriptBlock  {hostname}
+New-PSSession -ComputerName it-appsrv01 -Credential $cred
+```

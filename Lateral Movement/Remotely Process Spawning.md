@@ -1,4 +1,6 @@
 ### Remotely Process Spawning
+
+### Invoke-CimMethod
 ```
 $username = 'administrator';
 $password = 'P@ssw0rd';

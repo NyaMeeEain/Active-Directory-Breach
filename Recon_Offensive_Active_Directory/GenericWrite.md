@@ -16,6 +16,9 @@ Get-ADPrincipalGroupMembershipRecursive 'studentuser137'
 
 ```
 ```
+Find-InterestingDomainAcl -ResolveGUIDs |?{$_.IdentityReferenceName -match 'managers'}
+```
+```
 Get-DomainObjectAcl -Identity machineadmins -ResolveGUIDs | ForEach-Object {$_ | Add-Member NoteProperty 'IdentityName' $(Convert-SidToName $_.SecurityIdentifier);$_} | ?{$_.IdentityName -match 'managers'}
 ```
 us\managers group does have some interesting permissions. 

@@ -43,6 +43,7 @@ Add-ADGroupMember -Identity MachineAdmins -Members studentuserx -Verbose
 
 ```
 ```
+Get-ADComputer –Filter * | select –expand name
 winrs -r:us-mgmt cmd
 $usmgmt = New-PSSession us-mgmt
 Enter-PSSession $usmgmt

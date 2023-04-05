@@ -66,3 +66,7 @@ IdentityReferenceDomain : us.techcorp.local
 IdentityReferenceDN     : CN=StudentUsers,CN=Users,DC=us,DC=techcorp,DC=local
 IdentityReferenceClass  : group
 ```
+```
+Get-ADUser -Identity support148user -Properties ServicePrincipalName | select ServicePrincipalName
+Set-DomainObject -Identity support148user -Set @{serviceprincipalname='us/myspn148'} -Verbose
+```

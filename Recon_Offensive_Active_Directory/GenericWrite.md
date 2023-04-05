@@ -21,7 +21,7 @@ Find-InterestingDomainAcl -ResolveGUIDs |?{$_.IdentityReferenceName -match 'mana
 ```
 Get-DomainObjectAcl -Identity machineadmins -ResolveGUIDs | ForEach-Object {$_ | Add-Member NoteProperty 'IdentityName' $(Convert-SidToName $_.SecurityIdentifier);$_} | ?{$_.IdentityName -match 'managers'}
 ```
-us\managers group does have some interesting permissions. 
+us\managers group have GenericAll interesting permissions to MachineAdmins . 
 ```
 ObjectDN                : CN=MachineAdmins,OU=Mgmt,DC=us,DC=techcorp,DC=local
 AceQualifier            : AccessAllowed
@@ -35,6 +35,5 @@ IdentityReferenceName   : managers
 IdentityReferenceDomain : us.techcorp.local
 IdentityReferenceDN     : CN=Managers,CN=Users,DC=us,DC=techcorp,DC=local
 IdentityReferenceClass  : group
-
 
 ```

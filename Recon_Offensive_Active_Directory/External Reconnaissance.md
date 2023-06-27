@@ -37,3 +37,6 @@ Soe Thurein
 
 namemash.py taret.txt | sed 's/$/@acmebank.xyz/g' > emails.txt
 ```
+```
+cat /usr/share/seclists/Usernames/top-usernames-shortlist.txt | while read username; do smtp-user-enum -f '<0xdf@attended.htb>' -u "<${username}@attended.htb>" -M RCPT -t 10.10.10.221; done | grep exists
+```

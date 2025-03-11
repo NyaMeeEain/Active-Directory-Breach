@@ -4,7 +4,9 @@
 ```
 atch (n:User) return n
 Match (n:Computer) return n
-
+MATCH p=()-[:ReadGMSAPassword]->() RETURN p
+MATCH (c:Computer {haslaps:true}) RETURN c
+MATCH p=(g:Group)-[:ReaLAPSPassword]->(c:Computer) return p
 MATCH (u:User {owned:true}), (g:Group), p=(u)-[:MemberOf]->(g) RETURN p
 MATCH p=(a:Computer)-[r:HasSession]->(b:User) WITH a,b,r MATCH p=shortestPath((b)-[:AdminTo|MemberOf*1..]->(a)) RETURN p
 MATCH (n:User),(m:Computer), (n)<-[r:HasSession]-(m) WHERE NOT n.name STARTS WITH 'ANONYMOUS LOGON' AND NOT n.name='' WITH n, count(r) as rel_count order by rel_count desc LIMIT 10 MATCH p=(m)-[r:HasSession]->(n) RETURN p

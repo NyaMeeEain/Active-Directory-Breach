@@ -2,6 +2,16 @@
 ***One of the easiest ways to find exploitable paths, is to mark your current user (or machine account) as owned and perform the Shortest Paths from Owned Principles built-in query.***
 
 ```
+neo4j.bat install-service
+neo4j.bat console
+http://localhost:7474/browser/
+
+SharpHound.exe -c All,LoggedOn
+SharpHound.exe --CollectionMethod All
+SharpHound.exe -d acmebank.io -c All
+```
+
+```
 atch (n:User) return n
 Match (n:Computer) return n
 MATCH p=()-[:ReadGMSAPassword]->() RETURN p

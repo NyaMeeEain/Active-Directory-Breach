@@ -28,6 +28,12 @@ MATCH p=(u:User)-[:AllowedToDelegate]->(c:Computer) RETURN p
 MATCH p=(n:User)-[r:MemberOf*1..]->(m:Group {highvalue:true}) RETURN p
 MATCH (n:User) MATCH p=allShortestPaths((n)-[r:WriteAccountRestrictions|GenericAll|GenericWrite|Owns|WriteDacl]->(m:Computer)) WHERE n.owned RETURN p
 MATCH (a:Computer) MATCH p=allShortestPaths((n)-[r:WriteAccountRestrictions|GenericAll|GenericWrite|Owns|WriteDacl]->(m:Computer)) WHERE n.owned RETURN p
+MATCH q=(u)-[:GenericWrite|GenericAll|WriteDacl|
+WriteOwner|Owns|WriteAccountRestrictions|AllowedToAct]->(:Computer) WHERE NOT
+u.objectid ENDS WITH "-512" AND NOT
+u.objectid ENDS WITH "-519" AND NOT
+u.objectid ENDS WITH "-544" AND NOT
+u.objectid ENDS WITH "-548" RETURN q
 
 ```
 Ref: **https://github.com/zblurx/BloodHoundCustomQueries**

